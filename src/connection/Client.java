@@ -26,21 +26,22 @@ public class Client {
 
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            Scanner console = new Scanner(System.in);
 
             boolean isContinue;
             do {
-                isContinue = chatWithServer(reader, writer);
+                isContinue = chatWithServer(reader, writer, console);
             } while (isContinue);
 
             reader.close();
             writer.close();
+            console.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private boolean chatWithServer(BufferedReader reader, PrintWriter writer) throws IOException {
-        Scanner console = new Scanner(System.in);
+    private boolean chatWithServer(BufferedReader reader, PrintWriter writer, Scanner console) throws IOException {
         String messageToServer = console.nextLine();
         System.out.println("Sending to server: " + messageToServer);
         writer.println(messageToServer);
